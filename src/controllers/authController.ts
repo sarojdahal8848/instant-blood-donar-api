@@ -19,8 +19,9 @@ export const register = async (req: Request, res: Response) => {
       password: hash,
     });
     const accessToken = jwtSign(user);
+    const data = { accessToken, userId: user.id };
 
-    res.status(201).send({ msg: "success", accessToken });
+    res.status(201).send({ msg: "success", data });
   } catch (error) {
     res.status(500).send({ msg: "error", error: "something went wrong" });
   }
@@ -42,8 +43,9 @@ export const login = async (req: Request, res: Response) => {
         .send({ msg: "error", error: "user or password doesn't match" });
 
     const accessToken = jwtSign(user);
+    const data = { accessToken, userId: user.id };
 
-    res.status(201).send({ msg: "success", accessToken });
+    res.status(201).send({ msg: "success", data });
   } catch (error) {
     res.status(500).send({ msg: "error", error: "something went wrong" });
   }
